@@ -3,11 +3,11 @@ import { IFindAllUsersRepository } from "../../../../app/ports/adapter/repositor
 import { User } from "../../../../domain/entity/User";
 
 export class FindAllUsersRepository implements IFindAllUsersRepository {
-    findAll(): User[] {
-        try {
-            return Users;
-        } catch (error) {
-            throw error;
-        }
+    public async findAll(): Promise<User[]> {
+        return new Promise((resolve, _) => {
+            if(Users == [] || Users != []){
+                resolve(Users);
+            }
+        });
     }
 }

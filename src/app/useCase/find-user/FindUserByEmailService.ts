@@ -10,10 +10,18 @@ export class FindUserByUsernameService implements IFindUserByUsername {
         this.FindAllUsersRepository = findAllUsersRepository;
     }
 
-    public findByUsername(username: string): User {
+    public async findByUsername(username: string): Promise<User> {
         try {
-            const user = this.FindAllUsersRepository.findAll().find(usr => usr.getUsername() == username);
+            const user = (await this.listAllUsers()).find(usr => usr.getUsername() == username);
             return user;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    private async listAllUsers(): Promise<User[]> {
+        try {
+            return await this.FindAllUsersRepository.findAll();
         } catch (error) {
             throw error;
         }

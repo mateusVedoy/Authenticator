@@ -11,10 +11,10 @@ export class FindUserByUsernameController implements IController {
       this.FindUserByUsernameService = findUserByUsernameService;
    }
 
-   public handle(req: Request, res: Response): Response<Response<User>> {
+   public async handle(req: Request, res: Response): Promise<Response<User>> {
       const { username } = req.params;
       try {
-         const user = this.FindUserByUsernameService.findByUsername(username);
+         const user = await this.FindUserByUsernameService.findByUsername(username);
          return res.send({ "User": user }).status(200);
       } catch (error) {
          return res.send().status(400);
