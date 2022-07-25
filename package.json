@@ -5,8 +5,7 @@
   "main": "Server.ts",
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/Server.ts",
-    "inspect": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/Server.ts",
-    "teste": "ts-node-dev src/main/in-memory/CreateUserMain.ts"
+    "inspect": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/Server.ts"
   },
   "keywords": [],
   "author": "",
