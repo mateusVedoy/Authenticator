@@ -1,4 +1,4 @@
-import { User } from "domain/entity/User";
+import { User } from "../../../../domain/entity/User";
 
 export interface ITokenGen {
     generate(user: User): string;

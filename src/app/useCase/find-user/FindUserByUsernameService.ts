@@ -1,5 +1,5 @@
-import { IFindAllUsersRepository } from "../../../app/ports/adapter/repository/IFindAllUsersRepository";
-import { IFindUserByUsername } from "../../../app/ports/useCase/IFindUserByEmail";
+import { IFindAllUsersRepository } from "../../ports/adapter/repository/IFindAllUsersRepository";
+import { IFindUserByUsername } from "../../ports/useCase/IFindUserByEmail";
 import { User } from "../../../domain/entity/User";
 
 export class FindUserByUsernameService implements IFindUserByUsername {
