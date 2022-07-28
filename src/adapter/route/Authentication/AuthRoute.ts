@@ -1,5 +1,4 @@
-import { request, Router } from "express";
-import { Request, Response } from "express";
+import { Router, Request, Response } from "express";
 import { authenticationControl } from "../../../main/in-memory/AuthenticationMain";
 
 export const authRoute = Router();
