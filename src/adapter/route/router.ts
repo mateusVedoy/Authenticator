@@ -6,8 +6,8 @@ import { requestIntercepter } from "../../main/in-memory/AuthenticationMain";
 export const mainRouter = Router();
 
 
-mainRouter.use("/user", userRouter);
-mainRouter.use("/auth", authRoute);
+mainRouter.use("/user/in-memory", userRouter);
+mainRouter.use("/auth/in-memory", authRoute);
 
 mainRouter.get("/private",requestIntercepter.intercept, (req: Request, res: Response) => {
     return res.json({"Message:":"You're allowed to access this route!"});
