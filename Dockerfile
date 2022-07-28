@@ -6,7 +6,7 @@ COPY package*.json ./
 
 RUN npm i
 
-COPY . . /usr/app/
+COPY . .
 
 EXPOSE 3001
 
