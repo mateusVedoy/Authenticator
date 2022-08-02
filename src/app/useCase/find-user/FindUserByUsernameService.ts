@@ -1,5 +1,5 @@
 import { IFindAllUsersRepository } from "../../ports/adapter/repository/IFindAllUsersRepository";
-import { IFindUserByUsername } from "../../ports/useCase/IFindUserByEmail";
+import { IFindUserByUsername } from "../../ports/useCase/IFindUserByUsername";
 import { User } from "../../../domain/entity/User";
 
 export class FindUserByUsernameService implements IFindUserByUsername {
@@ -10,10 +10,10 @@ export class FindUserByUsernameService implements IFindUserByUsername {
         this.FindAllUsersRepository = findAllUsersRepository;
     }
 
-    public async findByUsername(username: string): Promise<User | []> {
+    public async findByUsername(username: string): Promise<User> {
         try {
             const user = await this.FindAllUsersRepository.find(username);
-            return user || [];
+            return user;
         } catch (error) {
             throw error;
         }
