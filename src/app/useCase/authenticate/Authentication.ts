@@ -1,6 +1,6 @@
 import { IHashedPassCompare } from "../../../app/ports/adapter/helper/IHashedPassCompare";
 import { ITokenGen } from "../../../app/ports/adapter/helper/ITokenGen";
-import { IFindUserByUsername } from "../../../app/ports/useCase/IFindUserByEmail";
+import { IFindUserByUsername } from "../../ports/useCase/IFindUserByUsername";
 import { IAuthentication } from "../../../app/ports/useCase/IAuthentication";
 import { User } from "../../../domain/entity/User";
 
