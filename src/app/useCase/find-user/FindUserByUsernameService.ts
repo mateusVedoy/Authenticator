@@ -1,12 +1,12 @@
-import { IFindAllUsersRepository } from "../../ports/adapter/repository/IFindAllUsersRepository";
+import { IFindUserRepository } from "../../ports/adapter/repository/IFindAllUsersRepository";
 import { IFindUserByUsername } from "../../ports/useCase/IFindUserByUsername";
 import { User } from "../../../domain/entity/User";
 
 export class FindUserByUsernameService implements IFindUserByUsername {
 
-    private FindAllUsersRepository: IFindAllUsersRepository;
+    private FindAllUsersRepository: IFindUserRepository;
 
-    public constructor(findAllUsersRepository: IFindAllUsersRepository) {
+    public constructor(findAllUsersRepository: IFindUserRepository) {
         this.FindAllUsersRepository = findAllUsersRepository;
     }
 
