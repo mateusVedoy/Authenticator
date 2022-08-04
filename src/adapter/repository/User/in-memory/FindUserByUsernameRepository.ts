@@ -1,8 +1,8 @@
-import { Users } from "../../../../adapter/database/in-memory/Users";
+import { Users } from "../../../database/in-memory/Users";
 import { IFindUserRepository } from "../../../../app/ports/adapter/repository/IFindAllUsersRepository";
 import { User } from "../../../../domain/entity/User";
 
-export class FindAllUsersRepository implements IFindUserRepository {
+export class FindUserByUsernameRepository implements IFindUserRepository {
     public async find(username: string): Promise<User> {
         return new Promise((resolve, reject) => {
             if (Users) {

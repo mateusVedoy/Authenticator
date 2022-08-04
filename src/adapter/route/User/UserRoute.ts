@@ -17,4 +17,6 @@ userRouter.get("/in-memory/find/byUsername/:username", (req: Request, res: Respo
 PGClient.connect().then(() => { 
     userRouter.post("/postgres/create", (req: Request, res: Response) => createUserController.handle(req, res)); 
     userRouter.get("/postgres/find/byUsername/:username", (req: Request, res: Response) => findUserByUsernameController.handle(req, res));
-})
+}).finally(() => {
+    PGClient.end();
+});
