@@ -19,6 +19,7 @@ export class Authentication implements IAuthentication {
     public async authenticate(username: string, email: string, password: string): Promise<string> {
         const usr = await this.verifyUser(username);
         if(usr){
+            console.log(usr)
             const isPassValid = await this.compareUserPass(password, usr.getPassword());
             const isEmailValid = this.compareUserEmail(email, usr.getEmail());
             if(isEmailValid && isPassValid){
