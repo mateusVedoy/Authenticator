@@ -4,12 +4,26 @@ import jwt from "jsonwebtoken";
 
 const SECRET = process.env.JWTSECRET || "$1$YhiQ/w2L$mmtX.mrwAEARiZOM4C/S00";
 
-export class JWTTokenGen implements ITokenGen{
+export class JWTTokenGenInMem implements ITokenGen{
     generate(user: User): string {
         return jwt.sign({
             username: user.getUsername(),
             email: user.getEmail(),
             pass: user.getPassword()
+        }, 
+        SECRET,
+        {
+            expiresIn: "10 minutes"
+        });
+    }
+}
+
+export class JWTTokenGenDB implements ITokenGen{
+    generate(user): string {
+        return jwt.sign({
+            username: user.usu_username,
+            email: user.usu_email,
+            pass: user.usu_senhacriptografada
         }, 
         SECRET,
         {

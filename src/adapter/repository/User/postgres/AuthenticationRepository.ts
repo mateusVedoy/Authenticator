@@ -10,8 +10,10 @@ export class AuthenticationUserRepository implements IAuthenticationUserReposito
     }
 
     public async authenticate(user: any, pass: string, email: string): Promise<Boolean> {
-        const isPassValid = await this.compareUserPass(pass, user.getPassword());
-        const isEmailValid = this.compareUserEmail(email, user.getEmail());
+        
+        const [usr,] = user;
+        const isPassValid = await this.compareUserPass(pass, usr.usu_senhacriptografada);
+        const isEmailValid = this.compareUserEmail(email, usr.usu_email);
         return new Promise((resolve, rejected) => {
             if (isEmailValid && isPassValid) {
                 resolve(true);

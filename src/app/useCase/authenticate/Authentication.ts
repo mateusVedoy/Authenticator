@@ -8,19 +8,19 @@ export class Authentication implements IAuthentication {
 
     private FindUserByUsernameService: IFindUserByUsername;
     private TokenGen: ITokenGen;
-    private AuthUSerRepo: IAuthenticationUserRepository;
+    private AuthUserRepo: IAuthenticationUserRepository;
 
     public constructor(findUserByUsernameService: IFindUserByUsername, tokenGen: ITokenGen, authUserRepo: IAuthenticationUserRepository) {
         this.FindUserByUsernameService = findUserByUsernameService;
         this.TokenGen = tokenGen;
-        this.AuthUSerRepo = authUserRepo;
+        this.AuthUserRepo = authUserRepo;
     }
 
     public async authenticate(username: string, email: string, password: string): Promise<string> {
+        const usr = await this.verifyUser(username);
         try {
-            const usr = await this.verifyUser(username);
             if (usr) {
-                const isAuthValid = await this.AuthUSerRepo.authenticate(usr, password, email);
+                const isAuthValid = await this.AuthUserRepo.authenticate(usr, password, email);
                 if (isAuthValid) {
                     return this.TokenGen.generate(usr);
                 }

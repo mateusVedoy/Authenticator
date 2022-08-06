@@ -3,11 +3,11 @@ import { AuthenticationUserRepository } from "../../adapter/repository/User/in-m
 import { FindUserByUsernameService } from "../../app/useCase/find-user/FindUserByUsernameService";
 import { AuthenticationController } from "../../adapter/controller/Authentication/AuthenticationController";
 import { Authentication } from "../../app/useCase/authenticate/Authentication";
-import { JWTTokenGen } from "../../adapter/helper/JWTTokenGen";
+import { JWTTokenGenInMem } from "../../adapter/helper/JWTTokenGen";
 import { BcryptJsPassCompare } from "../../adapter/helper/BryptJsPassCompare";
 
 const findUserByUsernameRepository = new FindUserByUsernameRepository();
-const jwtTokenGen = new JWTTokenGen();
+const jwtTokenGen = new JWTTokenGenInMem();
 const bcryptjs = new BcryptJsPassCompare();
 const authUserRepo = new AuthenticationUserRepository(bcryptjs)
 const findUserByUsernameService = new FindUserByUsernameService(findUserByUsernameRepository)
