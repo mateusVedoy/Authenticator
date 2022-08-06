@@ -13,7 +13,6 @@ export class Authentication implements IAuthentication {
     public constructor(findUserByUsernameService: IFindUserByUsername, tokenGen: ITokenGen, authUserRepo: IAuthenticationUserRepository) {
         this.FindUserByUsernameService = findUserByUsernameService;
         this.TokenGen = tokenGen;
-        //this.PassHashCompare = passHashCompare
         this.AuthUSerRepo = authUserRepo;
     }
 
