@@ -13,7 +13,7 @@ export class JWTTokenGenInMem implements ITokenGen{
         }, 
         SECRET,
         {
-            expiresIn: "10 minutes"
+            expiresIn: "2 minutes"
         });
     }
 }
@@ -27,7 +27,7 @@ export class JWTTokenGenDB implements ITokenGen{
         }, 
         SECRET,
         {
-            expiresIn: "10 minutes"
+            expiresIn: "2 minutes"
         });
     }
 }
