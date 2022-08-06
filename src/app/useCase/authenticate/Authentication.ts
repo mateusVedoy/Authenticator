@@ -1,46 +1,40 @@
-import { IHashedPassCompare } from "../../../app/ports/adapter/helper/IHashedPassCompare";
 import { ITokenGen } from "../../../app/ports/adapter/helper/ITokenGen";
 import { IFindUserByUsername } from "../../ports/useCase/IFindUserByUsername";
 import { IAuthentication } from "../../../app/ports/useCase/IAuthentication";
 import { User } from "../../../domain/entity/User";
+import { IAuthenticationUserRepository } from "../../../app/ports/adapter/repository/IAuthenticationUserRepository";
 
 export class Authentication implements IAuthentication {
 
     private FindUserByUsernameService: IFindUserByUsername;
     private TokenGen: ITokenGen;
-    private PassHashCompare: IHashedPassCompare;
+    private AuthUSerRepo: IAuthenticationUserRepository;
 
-    public constructor(findUserByUsernameService: IFindUserByUsername, tokenGen: ITokenGen, passHashCompare: IHashedPassCompare){
+    public constructor(findUserByUsernameService: IFindUserByUsername, tokenGen: ITokenGen, authUserRepo: IAuthenticationUserRepository) {
         this.FindUserByUsernameService = findUserByUsernameService;
         this.TokenGen = tokenGen;
-        this.PassHashCompare = passHashCompare
+        //this.PassHashCompare = passHashCompare
+        this.AuthUSerRepo = authUserRepo;
     }
 
     public async authenticate(username: string, email: string, password: string): Promise<string> {
-        const usr = await this.verifyUser(username);
-        if(usr){
-            console.log(usr)
-            const isPassValid = await this.compareUserPass(password, usr.getPassword());
-            const isEmailValid = this.compareUserEmail(email, usr.getEmail());
-            if(isEmailValid && isPassValid){
-                return this.TokenGen.generate(usr);
-            }else{
-                return "Invalid credentials";
+        try {
+            const usr = await this.verifyUser(username);
+            if (usr) {
+                const isAuthValid = await this.AuthUSerRepo.authenticate(usr, password, email);
+                if (isAuthValid) {
+                    return this.TokenGen.generate(usr);
+                }
+            } else {
+                return "User not found";
             }
-        }else{
-            return "Invalid credentials";
+        } catch (error) {
+            throw "Invalid credentials"
         }
     }
 
+    //permanece
     private async verifyUser(username: string): Promise<User> {
         return await this.FindUserByUsernameService.findByUsername(username);
-    }
-
-    private async compareUserPass(pass: string, hashedPass: string): Promise<Boolean> {
-        return await this.PassHashCompare.compare(pass, hashedPass);
-    }
-
-    private compareUserEmail(sent: string, received: string): Boolean {
-        return sent === received;
     }
 }
