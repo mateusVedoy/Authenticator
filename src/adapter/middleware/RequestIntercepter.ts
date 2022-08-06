@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 const SECRET = process.env.JWTTOKEN || "$1$YhiQ/w2L$mmtX.mrwAEARiZOM4C/S00";
 
-export class RequestIntercepter implements IMiddleware {
+class RequestIntercepter implements IMiddleware {
 
     public async intercept(req: Request, res: Response, next: NextFunction): Promise<Response> {
         const { authorization } = req.headers;
@@ -15,3 +15,5 @@ export class RequestIntercepter implements IMiddleware {
         });
     }
 }
+
+export const requestIntercepter = new RequestIntercepter();

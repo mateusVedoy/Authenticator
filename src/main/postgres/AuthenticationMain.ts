@@ -1,19 +1,19 @@
-import { FindUserByUsernameRepository } from "../../adapter/repository/User/in-memory/FindUserByUsernameRepository";
-import { AuthenticationUserRepository } from "../../adapter/repository/User/in-memory/AuthenticationRepository";
+import { FindUserByUsernameRepository } from "../../adapter/repository/User/postgres/FindUserByUsernameRepository";
+import { AuthenticationUserRepository } from "../../adapter/repository/User/postgres/AuthenticationRepository";
 import { FindUserByUsernameService } from "../../app/useCase/find-user/FindUserByUsernameService";
 import { AuthenticationController } from "../../adapter/controller/Authentication/AuthenticationController";
 import { Authentication } from "../../app/useCase/authenticate/Authentication";
-import { JWTTokenGenInMem } from "../../adapter/helper/JWTTokenGen";
+import { JWTTokenGenDB } from "../../adapter/helper/JWTTokenGen";
 import { BcryptJsPassCompare } from "../../adapter/helper/BryptJsPassCompare";
 
+const bcryptJSPassCompare = new BcryptJsPassCompare();
 const findUserByUsernameRepository = new FindUserByUsernameRepository();
-const jwtTokenGen = new JWTTokenGenInMem();
-const bcryptjs = new BcryptJsPassCompare();
-const authUserRepo = new AuthenticationUserRepository(bcryptjs)
+const jwtTokenGen = new JWTTokenGenDB();
+const authUserRepo = new AuthenticationUserRepository(bcryptJSPassCompare);
 const findUserByUsernameService = new FindUserByUsernameService(findUserByUsernameRepository)
 const authenticationService = new Authentication(findUserByUsernameService, jwtTokenGen, authUserRepo);
-const authenticationControl = new AuthenticationController(authenticationService);
+const authenticationController = new AuthenticationController(authenticationService);
 
 export {
-    authenticationControl
+    authenticationController
 }
